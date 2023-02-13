@@ -1,0 +1,11 @@
+{
+  "description": "This extension reverts the ibus input source to default when entering the overview, and restore it after exiting, which solves the conflict between the ibus popup and the \"Type to search\" feature.",
+  "name": "Hassleless Overview Search",
+  "shell-version": [
+    "42",
+    "43"
+  ],
+  "url": "https://github.com/mechtifs/hassleless-overview-search",
+  "uuid": "hassleless-overview-search@mechtifs",
+  "version": 1
+}
