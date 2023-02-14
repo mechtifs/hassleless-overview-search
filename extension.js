@@ -1,28 +1,28 @@
 const { getInputSourceManager } = imports.ui.status.keyboard
 const Main = imports.ui.main;
 
-let _switch2default;
-let _switch2prev;
-let _prevSource;
-let _inputSourceManager = getInputSourceManager()
+class Extension {
+	constructor() {}
 
-function switchSource(index) {
-	let { inputSources } = _inputSourceManager;
-	inputSources[index].activate();
+	set source(index) {
+		this._inputSourceManager.inputSources[index].activate();
+	}
+
+	enable() {
+		this._inputSourceManager = getInputSourceManager();
+		Main.overview.connectObject(
+			'showing', () => (
+				this._source = this._inputSourceManager.currentSource.index,
+				this.source = 0
+			),
+			'hiding', () => (this.source = this._source), this);
+	}
+
+	disable() {
+		Main.overview.disconnectObject(this);
+	}
 }
 
 function init() {
-}
-
-function enable() {
-	_switch2default = Main.overview.connect('showing', () => {
-		_prevSource = _inputSourceManager.currentSource.index;
-		switchSource(0);
-	});
-	_switch2prev = Main.overview.connect('hiding', () => switchSource(_prevSource));
-}
-
-function disable() {
-	Main.overview.disconnect(_switch2default);
-	Main.overview.disconnect(_switch2prev);
+	return new Extension();
 }
