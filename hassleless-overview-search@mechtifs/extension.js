@@ -1,9 +1,8 @@
-const { getInputSourceManager } = imports.ui.status.keyboard
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
+import { getInputSourceManager } from 'resource:///org/gnome/shell/ui/status/keyboard.js';
 
-class Extension {
-	constructor() {}
-
+export default class HasslelessOverviewSearchExtension extends Extension {
 	set source(index) {
 		this._inputSourceManager.inputSources[index].activate();
 	}
@@ -21,8 +20,4 @@ class Extension {
 	disable() {
 		Main.overview.disconnectObject(this);
 	}
-}
-
-function init() {
-	return new Extension();
 }
